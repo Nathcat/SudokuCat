@@ -1,0 +1,147 @@
+.sudoku-container {
+    width: 63vw;
+    height: 63vw;
+    position: relative;
+    transition: 2s;
+}
+
+.puzzle-container {
+    width: 63vw;
+    height: 63vw;
+    position: absolute;
+    left: 0; top: 0;
+    z-index: 0;
+
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(9, 1fr);
+
+    box-sizing: border-box;
+    transition: 2s;
+}
+
+.puzzle-overlay {
+    width: 63vw;
+    height: 63vw;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0; top: 0;
+    z-index: 1;
+    
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    pointer-events: none;
+    transition: 2s;
+}
+
+.puzzle-overlay div {
+    border: 1px solid var(--tertiary-color);
+}
+
+.number-space {
+    width: 7vw;
+    height: 7vw;
+    border: 2px solid var(--secondary-color);
+    display: grid;
+
+    text-align: center;
+    margin: 0px;
+    font-size: 5vw;
+    box-sizing: border-box;
+}
+
+.number-space.fixed {
+    color: var(--tertiary-color);
+}
+
+.number-space p {
+    font-size: 5vw;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+    place-self: center;
+    transition: 1s;
+}
+
+.number-space input {
+    border: none;
+    width: 75%;
+    height: 75%;
+    place-self: center;
+    text-align: center;
+    font-size: 5vw;
+    font-family: 'Times New Roman', Times, serif;
+    transition: 1s;
+}
+
+.number-space input:focus {
+    outline: none;
+    border: none;
+}
+
+.violating {
+    outline: 2px solid red;
+}
+
+.solved {
+    color: greenyellow;
+}
+
+.ask-new-puzzle-container {
+    display: none;
+    place-self: center;
+    width: 63vw;
+    height: 63vw;
+    pointer-events: none;
+    z-index: 2;
+    transition: 2s;
+}
+
+.ask-new-puzzle-container button {
+    place-self: center;
+    padding: 20px;
+    pointer-events: all;
+}
+
+.lds-ring,
+.lds-ring div {
+  box-sizing: border-box;
+}
+.lds-ring {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-ring div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border: 8px solid var(--quad-color);
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  border-color: var(--quad-color) transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
