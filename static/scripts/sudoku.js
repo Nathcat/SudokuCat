@@ -360,8 +360,8 @@ function ask_new_puzzle() {
     $(".ask-new-puzzle-container").css("display", "grid");
 
     let http = new XMLHttpRequest();
-    http.open("GET", "/set-solved.php");
-    http.onloadend = () => {
+    http.open("GET", "/set-solved.php", true);
+    http.onloadstart = () => {
         fetch("https://data.nathcat.net/sudoku/add-solved.php", {
             method: "POST",
             headers: {
@@ -372,6 +372,8 @@ function ask_new_puzzle() {
             console.log(m);
         });
     }
+
+    http.send();
 }
 
 function evaluate_inputs(e) {
