@@ -361,13 +361,15 @@ function ask_new_puzzle() {
 
     let http = new XMLHttpRequest();
     http.open("GET", "/set-solved.php", true);
+    http.withCredentials = true;
     http.onloadstart = () => {
         fetch("https://data.nathcat.net/sudoku/add-solved.php", {
             method: "POST",
             headers: {
                 "Content-Type": "text/plain"
             },
-            body: to_puzzle_string(get_puzzle())
+            body: to_puzzle_string(get_puzzle()),
+            credentials: "include"
         }).then((r) => r.json()).then((m) => {
             console.log(m);
         });
