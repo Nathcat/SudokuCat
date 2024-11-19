@@ -362,7 +362,7 @@ function ask_new_puzzle() {
     let http = new XMLHttpRequest();
     http.open("GET", "/set-solved.php");
     http.onloadend = () => {
-        fetch("/set-solved.php", {
+        fetch("https://data.nathcat.net/sudoku/add-solved.php", {
             method: "POST",
             headers: {
                 "Content-Type": "text/plain"
