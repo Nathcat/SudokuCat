@@ -6,7 +6,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://nathcat.net/static/css/new-common.css">
-    <link rel="stylesheet" href="static/styles/sudoku.css">
+    <link rel="stylesheet" href="/static/styles/sudoku.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <title>SudokuCat</title>
