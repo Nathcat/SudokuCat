@@ -23,6 +23,8 @@
     ?>
 
     <div class="main align-center">
+        <a href="/">Return to home page</a>
+        
         <div class="column justify-center align-center">
             <h1>Welcome, <?php echo $_SESSION["user"]["fullName"]; ?>.</h1>
 
