@@ -16,6 +16,15 @@
     <?php include("header.php"); ?>
 
     <div class="main align-center">
+
+        <?php include("start-session.php");
+        if (!array_key_exists("user", $_SESSION)) {
+            header("Location: https://data.nathcat.net/sso?return-page=https://sudoku.nathcat.net");
+        }
+        else {
+            echo "<h2>Welcome, " . $_SESSION["user"]["fullName"] . ".</h2>"
+        }
+        ?>
         
         <div class="sudoku-container">
             <div class="puzzle-container">
