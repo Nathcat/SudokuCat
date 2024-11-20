@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <?php include("../header.php"); include("start-session.php");
+    <?php include("../header.php"); include("../start-session.php");
         
         if (!array_key_exists("user", $_SESSION)) {
             header("Location: https://data.nathcat.net/sso?return-page=https://sudoku.nathcat.net/user");
