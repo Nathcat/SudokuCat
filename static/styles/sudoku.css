@@ -3,6 +3,9 @@
     height: 63vw;
     position: relative;
     transition: 2s;
+
+    max-width: 750px;
+    max-height: 750px;
 }
 
 .puzzle-container {
