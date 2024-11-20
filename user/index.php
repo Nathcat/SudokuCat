@@ -19,9 +19,6 @@
             header("Location: https://data.nathcat.net/sso?return-page=https://sudoku.nathcat.net/user");
             exit();
         }
-        else {
-            echo "<h2>Welcome, " . $_SESSION["user"]["fullName"] . ".</h2>";
-        }
     
     ?>
 
@@ -30,13 +27,8 @@
             <h1>Welcome, <?php echo $_SESSION["user"]["fullName"]; ?>.</h1>
 
             <div class="profile-picture">
-                <img src="<?php echo "/pfps/" . $_SESSION["user"]["pfpPath"]; ?>">
+                <img src="<?php echo "https://data.nathcat.net/pfps/" . $_SESSION["user"]["pfpPath"]; ?>">
             </div>
-
-            <form class="row align-center" method="POST" enctype="multipart/form-data">
-                <input type="file" name="uploadFilePFP" />
-                <input type="submit" name="uploadPFP" value="Upload new profile picture" />
-            </form>
 
             <div id="user-data-container" class="content-card" style="width: 100%;">
                 <p><b><i>Loading...</i></b></p>
@@ -50,7 +42,7 @@
 <script>
 fetch("https://data.nathcat.net/sudoku/get-user-data.php", {
     method: "GET",
-    credentials: include,
+    credentials: "include",
 }).then((r) => r.json()).then((r) => {
     console.log(r);
 });
