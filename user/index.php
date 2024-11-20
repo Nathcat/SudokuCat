@@ -44,7 +44,15 @@ fetch("https://data.nathcat.net/sudoku/get-user-data.php", {
     method: "GET",
     credentials: "include",
 }).then((r) => r.json()).then((r) => {
-    console.log(r);
+    if (r === null) {
+        r = {
+            "puzzles-solved": 0
+        };
+    }
+
+    $("#user-data-container").html(
+        "<p>You have solved " + r["puzzles-solved"] + " puzzles.</p>"
+    );
 });
 </script>
 
