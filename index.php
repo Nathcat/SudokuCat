@@ -20,12 +20,13 @@
         <?php include("start-session.php");
         if (!array_key_exists("user", $_SESSION)) {
             header("Location: https://data.nathcat.net/sso?return-page=https://sudoku.nathcat.net");
+            exit();
         }
         else {
-            echo "<h2>Welcome, " . $_SESSION["user"]["fullName"] . ".</h2>"
+            echo "<h2>Welcome, " . $_SESSION["user"]["fullName"] . ".</h2>";
         }
         ?>
-        
+
         <div class="sudoku-container">
             <div class="puzzle-container">
                 <div id="0_0" class="number-space"></div>
