@@ -11,7 +11,7 @@
 
         <span class="half-spacer"></span>
 
-        <div class="row justify-center align-center" onclick="location = '/user';">
+        <div style="cursor: pointer;" class="row justify-center align-center" onclick="location = '/user';">
             <div class="small-profile-picture">
                 <img src="<?php echo "https://data.nathcat.net/pfps/" . $_SESSION["user"]["pfpPath"]; ?>">
             </div>
