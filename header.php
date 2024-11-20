@@ -3,7 +3,7 @@
 <script src="/static/scripts/collapsible-header.js"></script>
 
 <div class="navbar column align-center justify-center">
-    <div class="row align-center justify-center">
+    <div style="width: 100%" class="row align-center justify-center">
         <div class="column align-center justify-center">
             <h1 id="navbar-title">SudokuCat</h1>
             <a href="https://nathcat.net">Part of the Nathcat Network</a>
@@ -11,7 +11,7 @@
 
         <span class="half-spacer"></span>
 
-        <div onclick="location = '/user';">
+        <div class="row justify-center align-center" onclick="location = '/user';">
             <div class="small-profile-picture">
                 <img src="<?php echo "https://data.nathcat.net/pfps/" . $_SESSION["user"]["pfpPath"]; ?>">
             </div>
