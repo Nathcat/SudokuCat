@@ -17,13 +17,10 @@
 
     <div class="main align-center">
 
-        <?php include("start-session.php");
+        <?php
         if (!array_key_exists("user", $_SESSION)) {
             header("Location: https://data.nathcat.net/sso?return-page=https://sudoku.nathcat.net");
             exit();
-        }
-        else {
-            echo "<h2>Welcome, " . $_SESSION["user"]["fullName"] . ".</h2>";
         }
         ?>
 

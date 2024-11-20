@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <?php include("../header.php"); include("../start-session.php");
+    <?php include("../header.php");
         
         if (!array_key_exists("user", $_SESSION)) {
             header("Location: https://data.nathcat.net/sso?return-page=https://sudoku.nathcat.net/user");
@@ -24,7 +24,7 @@
 
     <div class="main align-center">
         <a href="/">Return to home page</a>
-        
+
         <div class="column justify-center align-center">
             <h1>Welcome, <?php echo $_SESSION["user"]["fullName"]; ?>.</h1>
 
