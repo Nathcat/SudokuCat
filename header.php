@@ -9,10 +9,14 @@
             <a href="https://nathcat.net">Part of the Nathcat Network</a>
         </div>
 
-        <div class="small-profile-picture">
-            <img src="<?php echo "https://data.nathcat.net/pfps/" . $_SESSION["user"]["pfpPath"]; ?>">
-        </div>
+        <span class="half-spacer"></span>
 
-        <h2 style="margin-left: 20px;"><?php echo $_SESSION["user"]["fullName"]; ?></h2>
+        <div onclick="location = '/user';">
+            <div class="small-profile-picture">
+                <img src="<?php echo "https://data.nathcat.net/pfps/" . $_SESSION["user"]["pfpPath"]; ?>">
+            </div>
+
+            <h2 style="margin-left: 20px;"><?php echo $_SESSION["user"]["fullName"]; ?></h2>
+        </div>
     </div>
 </div>
