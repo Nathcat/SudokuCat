@@ -4,13 +4,15 @@
     position: relative;
     transition: 2s;
 
-    max-width: 750px;
-    max-height: 750px;
+    max-width: 720px;
+    max-height: 720px;
 }
 
 .puzzle-container {
     width: 63vw;
     height: 63vw;
+    max-width: 720px;
+    max-height: 720px;
     position: absolute;
     left: 0; top: 0;
     z-index: 0;
@@ -26,6 +28,8 @@
 .puzzle-overlay {
     width: 63vw;
     height: 63vw;
+    max-width: 720px;
+    max-height: 720px;
     box-sizing: border-box;
     position: absolute;
     left: 0; top: 0;
@@ -45,6 +49,8 @@
 .number-space {
     width: 7vw;
     height: 7vw;
+    max-width: 80px;
+    max-height: 80px;
     border: 2px solid var(--secondary-color);
     display: grid;
 
@@ -59,7 +65,7 @@
 }
 
 .number-space p {
-    font-size: 5vw;
+    font-size: 100%;
     text-align: center;
     margin: 0;
     padding: 0;
@@ -74,7 +80,7 @@
     height: 75%;
     place-self: center;
     text-align: center;
-    font-size: 5vw;
+    font-size: 100%;
     font-family: 'Times New Roman', Times, serif;
     transition: 1s;
 }
@@ -97,6 +103,8 @@
     place-self: center;
     width: 63vw;
     height: 63vw;
+    max-width: 720px;
+    max-height: 720px;
     pointer-events: none;
     z-index: 2;
     transition: 2s;
