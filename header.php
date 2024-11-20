@@ -9,6 +9,7 @@
             <a href="https://nathcat.net">Part of the Nathcat Network</a>
         </div>
 
+        <?php if (!isset($__REMOVE_PROFILE_BANNER__)) : ?>
         <span class="half-spacer"></span>
 
         <div style="cursor: pointer;" class="row justify-center align-center" onclick="location = '/user';">
@@ -18,5 +19,6 @@
 
             <h2 style="margin-left: 20px;"><?php echo $_SESSION["user"]["fullName"]; ?></h2>
         </div>
+        <?php endif; ?>
     </div>
 </div>

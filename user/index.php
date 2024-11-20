@@ -13,6 +13,8 @@
 </head>
 
 <body>
+    <?php $__REMOVE_PROFILE_BANNER__ = 1; ?>
+
     <?php include("../header.php");
         
         if (!array_key_exists("user", $_SESSION)) {
