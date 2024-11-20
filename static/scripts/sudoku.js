@@ -63,6 +63,22 @@ function set_puzzle(p) {
     });
 }
 
+function to_puzzle_string(p) {
+    let s = "";
+    for (let y = 0; y < 9; y++) {
+        for (let x = 0; x < 9; x++) {
+            if (x !== 8) {
+                s += p[y][x] + " ";
+            }
+            else {
+                s += p[y][x] + "\n";
+            }
+        }
+    }
+
+    return s;
+}
+
 function insert_puzzle(p_str) {
     let p = p_str.split("\n").map((v) => v.split(" "));
     
@@ -342,6 +358,24 @@ function ask_new_puzzle() {
     $(".puzzle-container").css("filter", "blur(2.5px)");
     $(".puzzle-overlay").css("filter", "blur(2.5px)");
     $(".ask-new-puzzle-container").css("display", "grid");
+
+    let http = new XMLHttpRequest();
+    http.open("GET", "/set-solved.php", true);
+    http.withCredentials = true;
+    http.onloadstart = () => {
+        fetch("https://data.nathcat.net/sudoku/add-solved.php", {
+            method: "POST",
+            headers: {
+                "Content-Type": "text/plain"
+            },
+            body: to_puzzle_string(get_puzzle()),
+            credentials: "include"
+        }).then((r) => r.json()).then((m) => {
+            console.log(m);
+        });
+    }
+
+    http.send();
 }
 
 function evaluate_inputs(e) {
