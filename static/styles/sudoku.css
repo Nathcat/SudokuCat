@@ -65,7 +65,7 @@
 }
 
 .number-space p {
-    font-size: 100%;
+    font-size: min(100%, 60px);
     text-align: center;
     margin: 0;
     padding: 0;
@@ -80,7 +80,7 @@
     height: 75%;
     place-self: center;
     text-align: center;
-    font-size: 100%;
+    font-size: min(100%, 60px);
     font-family: 'Times New Roman', Times, serif;
     transition: 1s;
 }
