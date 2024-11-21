@@ -50,15 +50,18 @@ function set_puzzle(p) {
         let value = p[coords[0]][coords[1]];
 
         $(this).html(
-            value === 0 ? "" : "<p>" + value + "</p>"
+            value <= 0 ? "" : "<p>" + value + "</p>"
         );
 
-        if (value !== 0) {
+        if (value !== 0 && value > 0) {
             $(this).addClass("fixed");
         }
         else {
             let in_id = coords[0] + "_" + coords[1] + "_value";
-            $(this).html("<input id='" + in_id + "' type='text' maxlength='1' onchange='evaluate_inputs(\"" + in_id + "\")'></input>")
+            $(this).html("<input id='" + in_id + "' type='text' maxlength='1' onchange='evaluate_inputs(\"" + in_id + "\")'></input>");
+            if (value < 0) {
+                $(this).children().val(Math.abs(value).toString());
+            }
         }
     });
 }
@@ -78,6 +81,20 @@ function to_puzzle_string(p) {
     }
 
     return s;
+}
+
+function mark_unfixed(p) {
+    for (let y = 0; y < 9; y++) {
+        for (let x = 0; x < 9; x++) {
+            $(".number-space input").each(function(e) {
+                let coords = $(this).attr("id").split("_").map(parseFloat);
+
+                p[coords[0]][coords[1]] *= -1;
+            });
+        }
+    }
+
+    return p;
 }
 
 function from_puzzle_string(p_str) {
@@ -383,6 +400,21 @@ function ask_new_puzzle() {
     }
 
     http.send();
+}
+
+function save_puzzle() {
+    let p_str = to_puzzle_string(mark_unfixed(get_puzzle()));
+                
+    fetch("https://data.nathcat.net/sudoku/save-puzzle-state.php", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "text/plain"
+        },
+        body: p_str
+    }).then((r) => r.json()).then((r) => {
+        console.log(r);
+    });
 }
 
 function evaluate_inputs(e) {
