@@ -385,6 +385,21 @@ function ask_new_puzzle() {
     http.send();
 }
 
+function save_puzzle_on_close(e) {
+    let p_str = to_puzzle_string(get_puzzle());
+
+    fetch("https://data.nathcat.net/sudoku/save-puzzle-state.php", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "text/plain"
+        },
+        body: p_str
+    }).then((r) => r.json()).then((r) => {
+        console.log(r);
+    });
+}
+
 function evaluate_inputs(e) {
     if (e !== "") {
         let doc = document.getElementById(e);
@@ -417,6 +432,7 @@ function evaluate_inputs(e) {
             credentials: "include"
         }).then((r) => r.json()).then((r) => console.log(r));
 
+        window.removeEventListener("beforeunload", save_puzzle_on_close);
         ask_new_puzzle();
     }
 }
