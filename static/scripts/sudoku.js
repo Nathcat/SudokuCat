@@ -70,9 +70,10 @@ function to_puzzle_string(p) {
             if (x !== 8) {
                 s += p[y][x] + " ";
             }
-            else {
+            else if (y !== 8){
                 s += p[y][x] + "\n";
             }
+            else s += p[y][x];
         }
     }
 
