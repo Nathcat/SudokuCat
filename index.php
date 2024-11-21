@@ -164,6 +164,8 @@
                 }); 
             }
             else {
+                console.log(r["currentPuzzle"]);
+                console.log(from_puzzle_string(r["currentPuzzle"]));
                 set_puzzle(from_puzzle_string(r["currentPuzzle"]));
             }
         });
