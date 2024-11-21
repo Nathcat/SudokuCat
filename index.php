@@ -171,25 +171,6 @@
             }
         });
     }
-
-    window.addEventListener("beforeunload", (e) => {
-        if (!SHOULD_SAVE_PUZZLE) return;
-        
-        let p_str = to_puzzle_string(get_puzzle());
-
-        fetch("https://data.nathcat.net/sudoku/save-puzzle-state.php", {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "text/plain"
-            },
-            body: p_str
-        }).then((r) => r.json()).then((r) => {
-            console.log(r);
-        });
-
-        e.preventDefault();
-    });
 </script>
 
 </html>

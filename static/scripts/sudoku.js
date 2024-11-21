@@ -417,9 +417,18 @@ function evaluate_inputs(e) {
             credentials: "include"
         }).then((r) => r.json()).then((r) => console.log(r));
 
-        SHOULD_SAVE_PUZZLE = false;
         ask_new_puzzle();
     }
+    else if (violations.length === 0) {
+        fetch("https://data.nathcat.net/sudoku/save-puzzle-state.php", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "text/plain"
+            },
+            body: p_str
+        }).then((r) => r.json()).then((r) => {
+            console.log(r);
+        });
+    }
 }
-
-var SHOULD_SAVE_PUZZLE = true;
