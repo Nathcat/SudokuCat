@@ -398,6 +398,8 @@ function save_puzzle_on_close(e) {
     }).then((r) => r.json()).then((r) => {
         console.log(r);
     });
+
+    e.preventDefault();
 }
 
 function evaluate_inputs(e) {
