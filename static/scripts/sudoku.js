@@ -10,6 +10,8 @@
 
 //var test_puzzle = "- 8 - 5 3 - 2 7 6\n- 5 - 6 - - - - -\n6 1 3 - - - - - -\n- - 6 - 5 - - - -\n- 3 2 - - - 7 - 1\n7 4 5 - - 8 6 9 3\n- 7 - 9 6 - 5 - -\n4 - - 1 8 - - 6 7\n5 - - - - 4 8 2 9";
 
+const DATA_BASE_URL = "https://data.nathcat.net";
+
 function empty_puzzle() {
     return [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -387,7 +389,7 @@ function ask_new_puzzle() {
     http.open("GET", "/set-solved.php", true);
     http.withCredentials = true;
     http.onloadstart = () => {
-        fetch("https://data.nathcat.net/sudoku/add-solved.php", {
+        fetch(DATA_BASE_URL + "/sudoku/add-solved.php", {
             method: "POST",
             headers: {
                 "Content-Type": "text/plain"
@@ -405,7 +407,7 @@ function ask_new_puzzle() {
 function save_puzzle() {
     let p_str = to_puzzle_string(mark_unfixed(get_puzzle()));
                 
-    fetch("https://data.nathcat.net/sudoku/save-puzzle-state.php", {
+    fetch(DATA_BASE_URL + "/sudoku/save-puzzle-state.php", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -444,7 +446,7 @@ function evaluate_inputs(e) {
             $(this).children().addClass("solved");
         });
 
-        fetch("https://data.nathcat.net/sudoku/delete-saved-puzzle.php", {
+        fetch(DATA_BASE_URL + "/sudoku/delete-saved-puzzle.php", {
             method: "GET",
             credentials: "include"
         }).then((r) => r.json()).then((r) => console.log(r));
