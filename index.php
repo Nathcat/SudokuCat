@@ -164,8 +164,9 @@
                 }); 
             }
             else {
-                console.log(r["currentPuzzle"]);
-                console.log(from_puzzle_string(r["currentPuzzle"]));
+                $(".sudoku-container").css("display", "grid");
+                $("#puzzle-loading").css("display", "none");
+                    
                 set_puzzle(from_puzzle_string(r["currentPuzzle"]));
             }
         });
