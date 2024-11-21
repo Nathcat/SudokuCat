@@ -164,7 +164,7 @@
                 }); 
             }
             else {
-                set_puzzle(from_puzzle_string(r[currentPuzzle]));
+                set_puzzle(from_puzzle_string(r["currentPuzzle"]));
             }
         });
     }
