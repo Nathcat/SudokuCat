@@ -82,7 +82,7 @@ function to_puzzle_string(p) {
 
 function from_puzzle_string(p_str) {
     return p_str.split("\n").map(
-        (r) => r.split(" ").map(parseInt)
+        (r) => r.split(" ").map(parseFloat)
     );
 }
 
