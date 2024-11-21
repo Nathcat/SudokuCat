@@ -145,11 +145,33 @@
     $(".sudoku-container").css("display", "none");
 
     window.onload = () => {
-        generate_new_puzzle(0.5).then((p) => {
-            $(".sudoku-container").css("display", "grid");
-            $("#puzzle-loading").css("display", "none");
-            set_puzzle(p);
-        }); 
+        fetch("https://data.nathcat.net/sudoku/get-user-data.php", {
+            method: "GET",
+            credentials: "include",
+        }).then((r) => r.json()).then((r) => {
+            if (r === null) {
+                r = {
+                    "puzzlesSolved": 0,
+                    "currentPuzzle": null
+                };
+            }
+        
+            if (r["currentPuzzle"] === null) {
+                generate_new_puzzle(0.5).then((p) => {
+                    $(".sudoku-container").css("display", "grid");
+                    $("#puzzle-loading").css("display", "none");
+                    set_puzzle(p);
+
+                    save_puzzle();
+                });
+            }
+            else {
+                $(".sudoku-container").css("display", "grid");
+                $("#puzzle-loading").css("display", "none");
+                    
+                set_puzzle(from_puzzle_string(r["currentPuzzle"]));
+            }
+        });
     }
 </script>
 
