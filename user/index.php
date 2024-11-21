@@ -50,12 +50,13 @@ fetch("https://data.nathcat.net/sudoku/get-user-data.php", {
 }).then((r) => r.json()).then((r) => {
     if (r === null) {
         r = {
-            "puzzles-solved": 0
+            "puzzlesSolved": 0,
+            "currentPuzzle": null
         };
     }
 
     $("#user-data-container").html(
-        "<p>You have solved " + r["puzzles-solved"] + " puzzles.</p>"
+        "<p>You have solved " + r["puzzlesSolved"] + " puzzles.</p>"
     );
 });
 </script>
