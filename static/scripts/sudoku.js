@@ -79,6 +79,12 @@ function to_puzzle_string(p) {
     return s;
 }
 
+function from_puzzle_string(p_str) {
+    return p_str.split("\n").map(
+        (r) => r.split(" ").map(parseInt)
+    );
+}
+
 function insert_puzzle(p_str) {
     let p = p_str.split("\n").map((v) => v.split(" "));
     
@@ -404,6 +410,11 @@ function evaluate_inputs(e) {
         $(".number-space").each(async function() {
             $(this).children().addClass("solved");
         });
+
+        fetch("https://data.nathcat.net/sudoku/delete-saved-puzzle.php", {
+            method: "GET",
+            credentials: "include"
+        }).then((r) => r.json()).then((r) => console.log(r));
 
         ask_new_puzzle();
     }
