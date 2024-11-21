@@ -434,7 +434,7 @@ function evaluate_inputs(e) {
             credentials: "include"
         }).then((r) => r.json()).then((r) => console.log(r));
 
-        window.removeEventListener("beforeunload", save_puzzle_on_close);
+        window.removeEventListener("beforeunload", save_puzzle_on_close, true);
         ask_new_puzzle();
     }
 }

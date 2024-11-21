@@ -172,7 +172,7 @@
         });
     }
 
-    window.addEventListener("beforeunload", save_puzzle_on_close);
+    window.addEventListener("beforeunload", save_puzzle_on_close, true);
 </script>
 
 </html>
