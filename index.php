@@ -182,6 +182,8 @@
         }).then((r) => r.json()).then((r) => {
             console.log(r);
         });
+
+        e.preventDefault();
     });
 </script>
 
