@@ -83,6 +83,9 @@
     font-size: min(100%, 60px);
     font-family: 'Times New Roman', Times, serif;
     transition: 1s;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
 }
 
 .number-space input:focus {
