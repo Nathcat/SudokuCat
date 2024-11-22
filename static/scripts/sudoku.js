@@ -419,6 +419,13 @@ function save_puzzle() {
     });
 }
 
+function delete_saved_puzzle() {
+    return fetch(DATA_BASE_URL + "/sudoku/delete-saved-puzzle.php", {
+        method: "GET",
+        credentials: "include"
+    }).then((r) => r.json());
+}
+
 function evaluate_inputs(e) {
     if (e !== "") {
         let doc = document.getElementById(e);
@@ -446,10 +453,7 @@ function evaluate_inputs(e) {
             $(this).children().addClass("solved");
         });
 
-        fetch(DATA_BASE_URL + "/sudoku/delete-saved-puzzle.php", {
-            method: "GET",
-            credentials: "include"
-        }).then((r) => r.json()).then((r) => console.log(r));
+        delete_saved_puzzle().then((r) => console.log(r));
 
         ask_new_puzzle();
     }

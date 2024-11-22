@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://nathcat.net/static/css/new-common.css">
     <link rel="stylesheet" href="/static/styles/sudoku.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/static/scripts/sudoku.js"></script>
 
     <title>SudokuCat</title>
 </head>

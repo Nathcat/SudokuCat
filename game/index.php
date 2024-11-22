@@ -17,6 +17,8 @@
 
     <div class="main align-center">
 
+        <a href="/">Return to home page</a>
+
         <?php
         if (!array_key_exists("user", $_SESSION)) {
             if ($_SERVER["SERVER_NAME"] === "localhost") {
