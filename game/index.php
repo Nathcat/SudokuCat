@@ -17,7 +17,7 @@
 
     <div class="main align-center">
 
-        <a href="/">Return to home page</a>
+        <a style="margin-bottom: 20px;"href="/">Return to home page</a>
 
         <?php
         if (!array_key_exists("user", $_SESSION)) {
