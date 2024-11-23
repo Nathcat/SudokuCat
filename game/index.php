@@ -157,6 +157,7 @@
     $(".sudoku-container").css("display", "none");
 
     window.onload = () => {
+    <?php if ($_SERVER["SERVER_NAME"] !== "localhost") : ?>
         fetch(DATA_BASE_URL + "/sudoku/get-user-data.php", {
             method: "GET",
             credentials: "include",
@@ -183,7 +184,16 @@
                     
                 set_puzzle(from_puzzle_string(r["currentPuzzle"]));
             }
+        }); 
+    <?php else : ?>
+        generate_new_puzzle(0.5).then((p) => {
+            $(".sudoku-container").css("display", "grid");
+            $("#puzzle-loading").css("display", "none");
+            set_puzzle(p);
+            fill_candidate_lists(p);
         });
+        
+    <?php endif; ?>
     }
 </script>
 

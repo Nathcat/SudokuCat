@@ -58,6 +58,7 @@
     margin: 0px;
     font-size: 5vw;
     box-sizing: border-box;
+    position: relative;
 }
 
 .number-space.fixed {
@@ -86,11 +87,30 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+
+    position: relative;
+    display: grid;
 }
 
 .number-space input:focus {
     outline: none;
     border: none;
+}
+
+.number-space .candidates-list {
+  display: grid;
+
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+
+  position: absolute;
+  place-self: center;
+  width: 75%;
+  height: 75%;
+  max-width: 80px;
+  max-height: 80px;
+  font-size: min(25%, 15px);
+  pointer-events: none;
 }
 
 .violating {

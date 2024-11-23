@@ -60,7 +60,7 @@ function set_puzzle(p) {
         }
         else {
             let in_id = coords[0] + "_" + coords[1] + "_value";
-            $(this).html("<input id='" + in_id + "' type='text' maxlength='1' onchange='evaluate_inputs(\"" + in_id + "\")'></input>");
+            $(this).html("<input id='" + in_id + "' type='text' maxlength='1' onchange='evaluate_inputs(\"" + in_id + "\")'><div id=\"" + coords[0] + "_" + coords[1] + "_candidates\" class=\"candidates-list\"></div></input>");
             if (value < 0) {
                 $(this).children().val(Math.abs(value).toString());
             }
@@ -426,6 +426,26 @@ function delete_saved_puzzle() {
     }).then((r) => r.json());
 }
 
+function fill_candidate_lists(p) {
+    $(".number-space .candidates-list").each(function() {
+        let pos = $(this).attr("id").split("_");
+        if ($("#" + pos[0] + "_" + pos[1] + "_value").val() !== "") {
+            $(this).css("display", "none");
+        }
+        else {
+            $(this).css("display", "grid");
+            let s = "";
+
+            let c = get_candidates(p, pos[1], pos[0]);
+            for (let i = 0; i < c.length; i++) {
+                s += "<p>" + c[i] + "</p>";
+            }
+
+            $(this).html(s);
+        }
+    });
+}
+
 function evaluate_inputs(e) {
     if (e !== "") {
         let doc = document.getElementById(e);
@@ -443,6 +463,8 @@ function evaluate_inputs(e) {
     $(".number-space input").each(function() {
         $(this).removeClass("violating");
     });
+
+    fill_candidate_lists(p);
     
     for (let i = 0; i < violations.length; i++) {
         $("#" + violations[i][1] + "_" + violations[i][0] + "_value").addClass("violating");
