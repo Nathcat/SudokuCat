@@ -175,6 +175,8 @@
                     $("#puzzle-loading").css("display", "none");
                     set_puzzle(p);
 
+                    fill_candidate_lists(p);
+
                     save_puzzle();
                 });
             }
@@ -183,6 +185,7 @@
                 $("#puzzle-loading").css("display", "none");
                     
                 set_puzzle(from_puzzle_string(r["currentPuzzle"]));
+                fill_candidate_lists(get_puzzle());
             }
         }); 
     <?php else : ?>
