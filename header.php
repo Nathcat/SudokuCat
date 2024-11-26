@@ -14,7 +14,7 @@
 
         <div style="cursor: pointer;" class="row justify-center align-center" onclick="location = '/user';">
             <div class="small-profile-picture">
-                <img src="<?php echo "https://data.nathcat.net/pfps/" . $_SESSION["user"]["pfpPath"]; ?>">
+                <img src="<?php echo "$_DATA_BASE_URL/pfps/" . $_SESSION["user"]["pfpPath"]; ?>">
             </div>
 
             <h2 style="margin-left: 20px;"><?php echo $_SESSION["user"]["fullName"]; ?></h2>

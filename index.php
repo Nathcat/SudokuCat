@@ -6,173 +6,70 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://nathcat.net/static/css/new-common.css">
-    <link rel="stylesheet" href="static/styles/sudoku.css">
+    <link rel="stylesheet" href="/static/styles/sudoku.css">
+    <link rel="stylesheet" href="/static/styles/home.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/static/scripts/sudoku.js"></script>
 
     <title>SudokuCat</title>
 </head>
 
 <body>
-    <?php include("header.php"); ?>
+    <?php $__REMOVE_PROFILE_BANNER__ = 1; include("header.php"); ?>
 
     <div class="main align-center">
 
         <?php
         if (!array_key_exists("user", $_SESSION)) {
-            header("Location: https://data.nathcat.net/sso?return-page=https://sudoku.nathcat.net");
-            exit();
+            if ($_SERVER["SERVER_NAME"] === "localhost") {
+                $_SESSION["user"] = [
+                    "id" => 1,
+                    "username" => "Nathcat",
+                    "fullName" => "Nathan Baines",
+                    "pfpPath" => "1.png"
+                ];
+            }
+            else {
+                header("Location: $_DATA_BASE_URL/sso?return-page=https://sudoku.nathcat.net");
+                exit();
+            }
         }
         ?>
 
-        <div class="sudoku-container">
-            <div class="puzzle-container">
-                <div id="0_0" class="number-space"></div>
-                <div id="0_1" class="number-space"></div>
-                <div id="0_2" class="number-space"></div>
-                <div id="0_3" class="number-space"></div>
-                <div id="0_4" class="number-space"></div>
-                <div id="0_5" class="number-space"></div>
-                <div id="0_6" class="number-space"></div>
-                <div id="0_7" class="number-space"></div>
-                <div id="0_8" class="number-space"></div>
-
-                <div id="1_0" class="number-space"></div>
-                <div id="1_1" class="number-space"></div>
-                <div id="1_2" class="number-space"></div>
-                <div id="1_3" class="number-space"></div>
-                <div id="1_4" class="number-space"></div>
-                <div id="1_5" class="number-space"></div>
-                <div id="1_6" class="number-space"></div>
-                <div id="1_7" class="number-space"></div>
-                <div id="1_8" class="number-space"></div>
-
-                <div id="2_0" class="number-space"></div>
-                <div id="2_1" class="number-space"></div>
-                <div id="2_2" class="number-space"></div>
-                <div id="2_3" class="number-space"></div>
-                <div id="2_4" class="number-space"></div>
-                <div id="2_5" class="number-space"></div>
-                <div id="2_6" class="number-space"></div>
-                <div id="2_7" class="number-space"></div>
-                <div id="2_8" class="number-space"></div>
-
-                <div id="3_0" class="number-space"></div>
-                <div id="3_1" class="number-space"></div>
-                <div id="3_2" class="number-space"></div>
-                <div id="3_3" class="number-space"></div>
-                <div id="3_4" class="number-space"></div>
-                <div id="3_5" class="number-space"></div>
-                <div id="3_6" class="number-space"></div>
-                <div id="3_7" class="number-space"></div>
-                <div id="3_8" class="number-space"></div>
-
-                <div id="4_0" class="number-space"></div>
-                <div id="4_1" class="number-space"></div>
-                <div id="4_2" class="number-space"></div>
-                <div id="4_3" class="number-space"></div>
-                <div id="4_4" class="number-space"></div>
-                <div id="4_5" class="number-space"></div>
-                <div id="4_6" class="number-space"></div>
-                <div id="4_7" class="number-space"></div>
-                <div id="4_8" class="number-space"></div>
-
-                <div id="5_0" class="number-space"></div>
-                <div id="5_1" class="number-space"></div>
-                <div id="5_2" class="number-space"></div>
-                <div id="5_3" class="number-space"></div>
-                <div id="5_4" class="number-space"></div>
-                <div id="5_5" class="number-space"></div>
-                <div id="5_6" class="number-space"></div>
-                <div id="5_7" class="number-space"></div>
-                <div id="5_8" class="number-space"></div>
-
-                <div id="6_0" class="number-space"></div>
-                <div id="6_1" class="number-space"></div>
-                <div id="6_2" class="number-space"></div>
-                <div id="6_3" class="number-space"></div>
-                <div id="6_4" class="number-space"></div>
-                <div id="6_5" class="number-space"></div>
-                <div id="6_6" class="number-space"></div>
-                <div id="6_7" class="number-space"></div>
-                <div id="6_8" class="number-space"></div>
-
-                <div id="7_0" class="number-space"></div>
-                <div id="7_1" class="number-space"></div>
-                <div id="7_2" class="number-space"></div>
-                <div id="7_3" class="number-space"></div>
-                <div id="7_4" class="number-space"></div>
-                <div id="7_5" class="number-space"></div>
-                <div id="7_6" class="number-space"></div>
-                <div id="7_7" class="number-space"></div>
-                <div id="7_8" class="number-space"></div>
-
-                <div id="8_0" class="number-space"></div>
-                <div id="8_1" class="number-space"></div>
-                <div id="8_2" class="number-space"></div>
-                <div id="8_3" class="number-space"></div>
-                <div id="8_4" class="number-space"></div>
-                <div id="8_5" class="number-space"></div>
-                <div id="8_6" class="number-space"></div>
-                <div id="8_7" class="number-space"></div>
-                <div id="8_8" class="number-space"></div>
+        <div class="home-container">
+            <div onclick="location = '/user';"class="greeting column align-center">
+                <div class="profile-picture">
+                    <img src="<?php echo "$_DATA_BASE_URL/pfps/" . $_SESSION["user"]["pfpPath"]; ?>">
+                </div>
+                <h3><i>Logged in as...</i></h3>
+                <h1 style="text-align: center; margin-top: 0;"><?php echo $_SESSION["user"]["fullName"]; ?></h1>
             </div>
 
-            <div class="puzzle-overlay">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+            <div id="leaderboard" class="content-card leaderboard column align-center">
+                <h2>Leaderboard</h2>
+                <p><b><i>Loading...</i></b></p>
             </div>
 
-            <div class="ask-new-puzzle-container">
-                <button onclick="location.reload()">Start a new puzzle?</button>
+            <div class="play-container">
+                <button onclick="location = '/game'">Continue</button>
+                <button onclick="delete_saved_puzzle().then((r) => location = '/game');">Start a new puzzle</button>
             </div>
         </div>
-        <div id="puzzle-loading" class="lds-ring"><div></div><div></div><div></div><div></div></div>
-    </div>
 
-    <script src="static/scripts/sudoku.js"></script>
-
-    <?php include("footer.php"); ?>
-</body>
+        <?php include("footer.php"); ?>
 
 <script>
-    $(".sudoku-container").css("display", "none");
+window.onload = (e) => {
+    fetch(DATA_BASE_URL + "/sudoku/leaderboard.php").then((r) => r.json()).then((r) => {
+        let s = "<h2>Leaderboard</h2>";
 
-    window.onload = () => {
-        fetch("https://data.nathcat.net/sudoku/get-user-data.php", {
-            method: "GET",
-            credentials: "include",
-        }).then((r) => r.json()).then((r) => {
-            if (r === null) {
-                r = {
-                    "puzzlesSolved": 0,
-                    "currentPuzzle": null
-                };
-            }
-        
-            if (r["currentPuzzle"] === null) {
-                generate_new_puzzle(0.5).then((p) => {
-                    $(".sudoku-container").css("display", "grid");
-                    $("#puzzle-loading").css("display", "none");
-                    set_puzzle(p);
+        for (let i in r) {
+            s += "<div class=\"user\"><div class=\"small-profile-picture\"><img src=\"" + DATA_BASE_URL + "/pfps/" + r[i]["pfpPath"] + "\"></div><div class=\"names\"><h3>" + r[i]["fullName"] + "</h3><p><i>" + r[i]["username"] + "</i></p></div><span class=\"spacer\"></span><p>Has solved " + r[i]["puzzlesSolved"] + " puzzles.</p></div>";
+        }
 
-                    save_puzzle();
-                });
-            }
-            else {
-                $(".sudoku-container").css("display", "grid");
-                $("#puzzle-loading").css("display", "none");
-                    
-                set_puzzle(from_puzzle_string(r["currentPuzzle"]));
-            }
-        });
-    }
+        $("#leaderboard").html(s);
+    });
+};
 </script>
 
 </html>

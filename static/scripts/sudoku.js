@@ -10,6 +10,8 @@
 
 //var test_puzzle = "- 8 - 5 3 - 2 7 6\n- 5 - 6 - - - - -\n6 1 3 - - - - - -\n- - 6 - 5 - - - -\n- 3 2 - - - 7 - 1\n7 4 5 - - 8 6 9 3\n- 7 - 9 6 - 5 - -\n4 - - 1 8 - - 6 7\n5 - - - - 4 8 2 9";
 
+const DATA_BASE_URL = "https://data.nathcat.net";
+
 function empty_puzzle() {
     return [
         [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -58,7 +60,7 @@ function set_puzzle(p) {
         }
         else {
             let in_id = coords[0] + "_" + coords[1] + "_value";
-            $(this).html("<input id='" + in_id + "' type='text' maxlength='1' onchange='evaluate_inputs(\"" + in_id + "\")'></input>");
+            $(this).html("<input id='" + in_id + "' type='text' maxlength='1' onchange='evaluate_inputs(\"" + in_id + "\")'><div id=\"" + coords[0] + "_" + coords[1] + "_candidates\" class=\"candidates-list\"></div></input>");
             if (value < 0) {
                 $(this).children().val(Math.abs(value).toString());
             }
@@ -251,89 +253,42 @@ function solve(p) {
     return false;
 }
 
-function shuffle_list(l) {
-    for (let i = 0; i < Math.floor(Math.random() * 100); i++) {
-        let a = Math.floor(Math.random() * l.length);
-        let b = Math.floor(Math.random() * l.length);
+function __generate_sub_grid(p, x, y) {
+    let c = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let cx = (Math.floor(x / 3) * 3) + 1;
+    let cy = (Math.floor(y / 3) * 3) + 1;
 
-        let tmp = l[a];
-        l[a] = l[b];
-        l[b] = tmp;
-    }
-
-    return l;
-}
-
-function generate_puzzle(p, free_cells) {
-    if (free_cells.length === 0) {
-        return p;
-    }
-
-    let cell_index = Math.floor(Math.random() * free_cells.length);
-    let cell = free_cells[cell_index];
-
-    let candidates = get_candidates(p, cell[0], cell[1]);
-    if (candidates.length === 0) {
-        return false;
-    }
-
-    free_cells.splice(cell_index, 1);
-
-    shuffle_list(candidates);
-    for (let i = 0; i < candidates.length; i++) {
-        p[cell[1]][cell[0]] = candidates[i];
-
-        let p_copy = JSON.parse(JSON.stringify(p));
-
-        if (solve(p_copy) !== false) {
-            if (free_cells.length === 0) {
-                return p;
-            }
-            else {
-                let res = generate_puzzle(p, free_cells);
-
-                if (res !== false) {
-                    return res;
-                }
-            }
+    for (let Y = cy - 1; Y <= cy + 1; Y++) {
+        for (let X = cx - 1; X <= cx + 1; X++) {
+            let i = Math.floor(Math.random() * c.length);
+            p[y][x] = c[i];
+            c.splice(i, 1);
         }
     }
 
-    p[cell[1]][cell[0]] = 0;
-    free_cells.push(cell);
-    return false;
+    return p;
 }
 
-function generate_random_free_cells(chance_of_number) {
-    let free_cells = [];
-    let unselected_cells = [];
+function generate_new_puzzle(chance_of_number) {
+    let p = empty_puzzle();
+
+    // Start by randomly generating the diagonal sub-grids
+    __generate_sub_grid(
+        __generate_sub_grid(
+            __generate_sub_grid(
+                p, 1, 1
+            ), 4, 4
+        ), 7, 7
+    );
+
+    p = solve(p);
 
     for (let y = 0; y < 9; y++) {
         for (let x = 0; x < 9; x++) {
-            unselected_cells.push([x, y]);
+            if (Math.random() > chance_of_number) {
+                p[y][x] = 0;
+            }
         }
-    }
-    
-    for (let i = 0; i < Math.floor(81 * chance_of_number); i++) {
-        let s = Math.floor(Math.random() * unselected_cells.length);
-        free_cells.push(unselected_cells[s]);
-        unselected_cells.splice(s, 1);
-    } 
-    
-    return free_cells;
-}
-
-async function generate_new_puzzle(chance_of_number) {
-    let p = empty_puzzle();
-
-    let free_cells = generate_random_free_cells(chance_of_number);
-
-    p = generate_puzzle(p, free_cells);
-    while (p === false) p = generate_puzzle(empty_puzzle(), generate_random_free_cells());
-
-    while (solve(JSON.parse(JSON.stringify(p))) === false) { 
-        p = generate_puzzle(p, free_cells);
-        while (p === false) p = generate_puzzle(empty_puzzle(), generate_random_free_cells());
     }
 
     return p;
@@ -387,7 +342,7 @@ function ask_new_puzzle() {
     http.open("GET", "/set-solved.php", true);
     http.withCredentials = true;
     http.onloadstart = () => {
-        fetch("https://data.nathcat.net/sudoku/add-solved.php", {
+        fetch(DATA_BASE_URL + "/sudoku/add-solved.php", {
             method: "POST",
             headers: {
                 "Content-Type": "text/plain"
@@ -405,7 +360,7 @@ function ask_new_puzzle() {
 function save_puzzle() {
     let p_str = to_puzzle_string(mark_unfixed(get_puzzle()));
                 
-    fetch("https://data.nathcat.net/sudoku/save-puzzle-state.php", {
+    fetch(DATA_BASE_URL + "/sudoku/save-puzzle-state.php", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -414,6 +369,33 @@ function save_puzzle() {
         body: p_str
     }).then((r) => r.json()).then((r) => {
         console.log(r);
+    });
+}
+
+function delete_saved_puzzle() {
+    return fetch(DATA_BASE_URL + "/sudoku/delete-saved-puzzle.php", {
+        method: "GET",
+        credentials: "include"
+    }).then((r) => r.json());
+}
+
+function fill_candidate_lists(p) {
+    $(".number-space .candidates-list").each(function() {
+        let pos = $(this).attr("id").split("_");
+        if ($("#" + pos[0] + "_" + pos[1] + "_value").val() !== "") {
+            $(this).css("display", "none");
+        }
+        else {
+            $(this).css("display", "grid");
+            let s = "";
+
+            let c = get_candidates(p, pos[1], pos[0]);
+            for (let i = 0; i < c.length; i++) {
+                s += "<p>" + c[i] + "</p>";
+            }
+
+            $(this).html(s);
+        }
     });
 }
 
@@ -434,6 +416,8 @@ function evaluate_inputs(e) {
     $(".number-space input").each(function() {
         $(this).removeClass("violating");
     });
+
+    fill_candidate_lists(p);
     
     for (let i = 0; i < violations.length; i++) {
         $("#" + violations[i][1] + "_" + violations[i][0] + "_value").addClass("violating");
@@ -444,10 +428,7 @@ function evaluate_inputs(e) {
             $(this).children().addClass("solved");
         });
 
-        fetch("https://data.nathcat.net/sudoku/delete-saved-puzzle.php", {
-            method: "GET",
-            credentials: "include"
-        }).then((r) => r.json()).then((r) => console.log(r));
+        delete_saved_puzzle().then((r) => console.log(r));
 
         ask_new_puzzle();
     }

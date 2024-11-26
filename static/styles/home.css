@@ -1,0 +1,76 @@
+
+@media (width > 1000px) {
+    .home-container {
+        display: grid;
+
+        width: 100%;
+        height: 100%;
+
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-rows: 1fr;
+
+        grid-template-areas: "greeting leaderboard play";
+    }
+}
+
+@media (max-width: 1000px) {
+    .home-container {
+        display: grid;
+    
+        width: 100%;
+        height: 100%;
+    
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+    
+        grid-template-areas: "greeting" "leaderboard" "play";
+    }
+}
+
+.home-container .greeting {
+    grid-area: "greeting";
+    padding: 20px;
+    justify-content: start;
+    cursor: pointer;
+}
+
+.home-container .leaderboard {
+    grid-area: "leaderboard";
+    justify-content: start;
+}
+
+.home-container .leaderboard .user {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    margin-top: 10px;
+}
+
+.home-container .leaderboard .user .names {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+}
+
+.home-container .leaderboard .user .names h3 {
+    margin-bottom: 0;
+}
+
+.play-container {
+    grid-area: "play";
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.play-container button {
+    width: 100%;
+    padding: 25px;
+    font-size: 100%;
+}
