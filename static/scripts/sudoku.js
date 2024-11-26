@@ -342,23 +342,16 @@ function ask_new_puzzle() {
     $(".puzzle-overlay").css("filter", "blur(2.5px)");
     $(".ask-new-puzzle-container").css("display", "grid");
 
-    let http = new XMLHttpRequest();
-    http.open("GET", "/set-solved.php", true);
-    http.withCredentials = true;
-    http.onloadstart = () => {
-        fetch(DATA_BASE_URL + "/sudoku/add-solved.php", {
-            method: "POST",
-            headers: {
-                "Content-Type": "text/plain"
-            },
-            body: to_puzzle_string(get_puzzle()),
-            credentials: "include"
-        }).then((r) => r.json()).then((m) => {
-            console.log(m);
-        });
-    }
-
-    http.send();
+    fetch(DATA_BASE_URL + "/sudoku/add-solved.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "text/plain"
+        },
+        body: to_puzzle_string(get_puzzle()),
+        credentials: "include"
+    }).then((r) => r.json()).then((m) => {
+        console.log(m);
+    });
 }
 
 function save_puzzle() {
