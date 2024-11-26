@@ -60,7 +60,11 @@ function set_puzzle(p) {
         }
         else {
             let in_id = coords[0] + "_" + coords[1] + "_value";
-            $(this).html("<input id='" + in_id + "' type='text' maxlength='1' onchange='evaluate_inputs(\"" + in_id + "\")'><div id=\"" + coords[0] + "_" + coords[1] + "_candidates\" class=\"candidates-list\"></div></input>");
+            $(this).html("<input id='" + in_id + "' type='text' maxlength='1'><div id=\"" + coords[0] + "_" + coords[1] + "_candidates\" class=\"candidates-list\"></div></input>");
+            
+
+            $("#" + in_id).on("input", (e) => evaluate_inputs(e.target.id));
+
             if (value < 0) {
                 $(this).children().val(Math.abs(value).toString());
             }
@@ -400,17 +404,24 @@ function fill_candidate_lists(p) {
 }
 
 function evaluate_inputs(e) {
+    let p = get_puzzle();
+
     if (e !== "") {
         let doc = document.getElementById(e);
-        
-        let v = parseInt(doc.value);
-        if (isNaN(v) || v < 0 || v > 10) {
-            doc.value = "";
-            return;
+
+        if (doc.value === "") {
+            let c = e.split("_").map(parseFloat);
+            p[c[0]][c[1]] = 0;
+        } 
+        else {
+            let v = parseInt(doc.value);
+            if (isNaN(v) || v < 0 || v > 10) {
+                doc.value = "";
+                return;
+            }
         }
     }
     
-    let p = get_puzzle();
     let violations = is_solved(p);
 
     $(".number-space input").each(function() {
