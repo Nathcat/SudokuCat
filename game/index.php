@@ -170,15 +170,13 @@
             }
         
             if (r["currentPuzzle"] === null) {
-                generate_new_puzzle(0.5).then((p) => {
-                    $(".sudoku-container").css("display", "grid");
-                    $("#puzzle-loading").css("display", "none");
-                    set_puzzle(p);
+                let p = generate_new_puzzle(0.5);
 
-                    fill_candidate_lists(p);
-
-                    save_puzzle();
-                });
+                $(".sudoku-container").css("display", "grid");
+                $("#puzzle-loading").css("display", "none");
+                set_puzzle(p);
+                fill_candidate_lists(p);
+                save_puzzle();
             }
             else {
                 $(".sudoku-container").css("display", "grid");
@@ -189,12 +187,12 @@
             }
         }); 
     <?php else : ?>
-        generate_new_puzzle(0.5).then((p) => {
-            $(".sudoku-container").css("display", "grid");
-            $("#puzzle-loading").css("display", "none");
-            set_puzzle(p);
-            fill_candidate_lists(p);
-        });
+        let p = generate_new_puzzle(0.5);
+
+        $(".sudoku-container").css("display", "grid");
+        $("#puzzle-loading").css("display", "none");
+        set_puzzle(p);
+        fill_candidate_lists(p);
         
     <?php endif; ?>
     }

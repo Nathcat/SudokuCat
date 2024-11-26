@@ -325,7 +325,7 @@ function generate_random_free_cells(chance_of_number) {
     return free_cells;
 }
 
-async function generate_new_puzzle(chance_of_number) {
+/*async function generate_new_puzzle(chance_of_number) {
     let p = empty_puzzle();
 
     let free_cells = generate_random_free_cells(chance_of_number);
@@ -336,6 +336,47 @@ async function generate_new_puzzle(chance_of_number) {
     while (solve(JSON.parse(JSON.stringify(p))) === false) { 
         p = generate_puzzle(p, free_cells);
         while (p === false) p = generate_puzzle(empty_puzzle(), generate_random_free_cells());
+    }
+
+    return p;
+}*/
+
+function __generate_sub_grid(p, x, y) {
+    let c = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+    let cx = (Math.floor(x / 3) * 3) + 1;
+    let cy = (Math.floor(y / 3) * 3) + 1;
+
+    for (let Y = cy - 1; Y <= cy + 1; Y++) {
+        for (let X = cx - 1; X <= cx + 1; X++) {
+            let i = Math.floor(Math.random() * c.length);
+            p[y][x] = c[i];
+            c.splice(i, 1);
+        }
+    }
+
+    return p;
+}
+
+function generate_new_puzzle(chance_of_number) {
+    let p = empty_puzzle();
+
+    // Start by randomly generating the diagonal sub-grids
+    __generate_sub_grid(
+        __generate_sub_grid(
+            __generate_sub_grid(
+                p, 1, 1
+            ), 4, 4
+        ), 7, 7
+    );
+
+    p = solve(p);
+
+    for (let y = 0; y < 9; y++) {
+        for (let x = 0; x < 9; x++) {
+            if (Math.random() > chance_of_number) {
+                p[y][x] = 0;
+            }
+        }
     }
 
     return p;
