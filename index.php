@@ -37,7 +37,7 @@
         ?>
 
         <div class="home-container">
-            <div onclick="location = '/user';"class="greeting column align-center">
+            <div id="user-container" onclick="location = '/user';"class="greeting column align-center">
                 <div class="profile-picture">
                     <img src="<?php echo "$_DATA_BASE_URL/pfps/" . $_SESSION["user"]["pfpPath"]; ?>">
                 </div>
@@ -68,6 +68,24 @@ window.onload = (e) => {
         }
 
         $("#leaderboard").html(s);
+    });
+
+    fetch(DATA_BASE_URL + "/sudoku/get-user-data.php", {
+        method: "GET",
+        credentials: "include",
+    }).then((r) => r.json()).then((r) => {
+        if (r === null) {
+            r = {
+                "puzzlesSolved": 0,
+                "currentPuzzle": null,
+                "streakLength": 0,
+                "hasSolvedToday": 0,
+            };
+        }
+
+        if (r["hasSolvedToday"] === 0) {
+            document.getElementById("user-container").innerHTML += "<div class='error-card'><h3>Don't forget your streak!</h3><p>You haven't solved a puzzle yet today!</p></div>";
+        }
     });
 };
 </script>

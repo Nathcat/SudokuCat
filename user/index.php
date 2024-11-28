@@ -52,12 +52,15 @@ fetch(DATA_BASE_URL + "/sudoku/get-user-data.php", {
     if (r === null) {
         r = {
             "puzzlesSolved": 0,
-            "currentPuzzle": null
+            "currentPuzzle": null,
+            "streakLength": 0,
+            "hasSolvedToday": 0,
         };
     }
 
     $("#user-data-container").html(
-        "<p>You have solved " + r["puzzlesSolved"] + " puzzles.</p>"
+        "<p>You have solved " + r["puzzlesSolved"] + " puzzles.</p>" +
+        "<p>You have a " + r["streakLength"] + " day streak." + (r["hasSolvedToday"] === 0 ? " <b><i>You haven't solved a puzzle yet today!</b></i>": "") + "</p>"
     );
 });
 </script>
