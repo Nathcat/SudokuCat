@@ -60,7 +60,7 @@ fetch(DATA_BASE_URL + "/sudoku/get-user-data.php", {
 
     $("#user-data-container").html(
         "<p>You have solved " + r["puzzlesSolved"] + " puzzles.</p>" +
-        "<p>You have a " + (r["streakLength"] + (r["hasSolvedToday"] === 1 ? 1 : 0)) + " day streak." + (r["hasSolvedToday"] === 0 ? " <b><i>You haven't solved a puzzle yet today!</b></i>" : "You have solved a puzzle today :)") + "</p>"
+        "<p>You have a " + (r["streakLength"] + (r["hasSolvedToday"] === 1 ? 1 : 0)) + " day streak." + (r["hasSolvedToday"] === 0 ? " <b><i>You haven't solved a puzzle yet today!</b></i>" : " You have solved a puzzle today :)") + "</p>"
     );
 });
 </script>
