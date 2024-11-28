@@ -60,7 +60,7 @@ function set_puzzle(p) {
         }
         else {
             let in_id = coords[0] + "_" + coords[1] + "_value";
-            $(this).html("<input id='" + in_id + "' type='text' maxlength='1'><div id=\"" + coords[0] + "_" + coords[1] + "_candidates\" class=\"candidates-list\"></div></input>");
+            $(this).html("<input id='" + in_id + "' type='text' maxlength='1' autocomplete='off'><div id=\"" + coords[0] + "_" + coords[1] + "_candidates\" class=\"candidates-list\"></div></input>");
             
 
             $("#" + in_id).on("input", (e) => evaluate_inputs(e.target.id));
