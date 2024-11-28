@@ -6,7 +6,7 @@
     <div style="width: 100%" class="row align-center justify-center">
         <div class="column align-center justify-center">
             <h1 id="navbar-title">SudokuCat</h1>
-            <a href="https://nathcat.net">Part of the Nathcat Network</a>
+            <a href="https://apps.nathcat.net">Part of the Nathcat Network</a>
         </div>
 
         <?php if (!isset($__REMOVE_PROFILE_BANNER__)) : ?>
