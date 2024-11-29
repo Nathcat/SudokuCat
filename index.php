@@ -64,7 +64,7 @@ window.onload = (e) => {
         let s = "<h2>Leaderboard</h2>";
 
         for (let i in r) {
-            s += "<div class=\"user\"><div class=\"small-profile-picture\"><img src=\"" + DATA_BASE_URL + "/pfps/" + r[i]["pfpPath"] + "\"></div><div class=\"names\"><h3>" + r[i]["fullName"] + "</h3><p><i>" + r[i]["username"] + "</i></p></div><span class=\"spacer\"></span><p>Has solved " + r[i]["puzzlesSolved"] + " puzzles.</p></div>";
+            s += "<div class=\"user\"><div class=\"small-profile-picture\"><img src=\"" + DATA_BASE_URL + "/pfps/" + r[i]["pfpPath"] + "\"></div><div class=\"names\"><h3>" + r[i]["fullName"] + "</h3><p><i>" + r[i]["username"] + "</i></p></div><span class=\"spacer\" style=\"text-align: center\">" + (r[i]["streakLength"] === 0 ? "" : "<p><b><i>" + r[i]["streakLength"] + " day streak!</i></b></p>") + "</span><p>Has solved " + r[i]["puzzlesSolved"] + " puzzles.</p></div>";
         }
 
         $("#leaderboard").html(s);
