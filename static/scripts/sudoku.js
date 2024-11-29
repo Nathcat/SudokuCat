@@ -265,7 +265,7 @@ function __generate_sub_grid(p, x, y) {
     for (let Y = cy - 1; Y <= cy + 1; Y++) {
         for (let X = cx - 1; X <= cx + 1; X++) {
             let i = Math.floor(Math.random() * c.length);
-            p[y][x] = c[i];
+            p[Y][X] = c[i];
             c.splice(i, 1);
         }
     }
