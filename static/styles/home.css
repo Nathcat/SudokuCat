@@ -6,10 +6,10 @@
         width: 100%;
         height: 100%;
 
-        grid-template-columns: 1fr 2fr 1fr;
-        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 2fr 2fr;
+        grid-template-rows: 1fr 1fr;
 
-        grid-template-areas: "greeting leaderboard play";
+        grid-template-areas: "greeting leaderboard streak-leaderboard" "play play play";
     }
 }
 
@@ -21,31 +21,29 @@
         height: 100%;
     
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
     
-        grid-template-areas: "greeting" "leaderboard" "play";
+        grid-template-areas: "greeting" "leaderboard" "streak-leaderboard" "play";
     }
 }
 
 .home-container .greeting {
-    grid-area: "greeting";
+    grid-area: greeting;
     padding: 20px;
     justify-content: start;
     cursor: pointer;
 }
 
 .home-container .leaderboard {
-    grid-area: "leaderboard";
     justify-content: start;
 }
 
 .home-container .leaderboard .user {
     width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: start;
     margin-top: 10px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 2fr;
+    grid-template-rows: 1fr;
 }
 
 .home-container .leaderboard .user .names {
@@ -61,7 +59,7 @@
 }
 
 .play-container {
-    grid-area: "play";
+    grid-area: play;
 
     display: flex;
     flex-direction: column;

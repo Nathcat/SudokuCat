@@ -50,6 +50,11 @@
                 <p><b><i>Loading...</i></b></p>
             </div>
 
+            <div id="streak-leaderboard" class="content-card leaderboard column align-center">
+                <h2>Streak Leaderboard</h2>
+                <p><b><i>Loading...</i></b></p>
+            </div>
+
             <div class="play-container">
                 <button onclick="location = '/game'">Continue</button>
                 <button onclick="delete_saved_puzzle().then((r) => location = '/game');">Start a new puzzle</button>
@@ -64,10 +69,20 @@ window.onload = (e) => {
         let s = "<h2>Leaderboard</h2>";
 
         for (let i in r) {
-            s += "<div class=\"user\"><div class=\"small-profile-picture\"><img src=\"" + DATA_BASE_URL + "/pfps/" + r[i]["pfpPath"] + "\"></div><div class=\"names\"><h3>" + r[i]["fullName"] + "</h3><p><i>" + r[i]["username"] + "</i></p></div><span class=\"spacer\" style=\"text-align: center\">" + (r[i]["streakLength"] === 0 ? "" : "<p><b><i>" + r[i]["streakLength"] + " day streak!</i></b></p>") + "</span><p>Has solved " + r[i]["puzzlesSolved"] + " puzzles.</p></div>";
+            s += "<div class=\"user\"><div class=\"small-profile-picture\"><img src=\"" + DATA_BASE_URL + "/pfps/" + r[i]["pfpPath"] + "\"></div><div class=\"names\"><h3>" + r[i]["fullName"] + "</h3><p><i>" + r[i]["username"] + "</i></p></div><span class=\"spacer names\">" + (r[i]["streakLength"] === 0 ? "" : "<p><b><i>" + r[i]["streakLength"] + " day streak!</i></b></p>") + "</span><span class=\"spacer names\"><p><b><i>Has solved " + r[i]["puzzlesSolved"] + " puzzles.</i></b></p></span></div>";
         }
 
         $("#leaderboard").html(s);
+    });
+
+    fetch(DATA_BASE_URL + "/sudoku/streak-leaderboard.php").then((r) => r.json()).then((r) => {
+        let s = "<h2>Streak Leaderboard</h2>";
+
+        for (let i in r) {
+            s += "<div class=\"user\"><div class=\"small-profile-picture\"><img src=\"" + DATA_BASE_URL + "/pfps/" + r[i]["pfpPath"] + "\"></div><div class=\"names\"><h3>" + r[i]["fullName"] + "</h3><p><i>" + r[i]["username"] + "</i></p></div><span class=\"spacer names\">" + (r[i]["streakLength"] === 0 ? "" : "<p><b><i>" + r[i]["streakLength"] + " day streak!</i></b></p>") + "</span><span class=\"spacer names\"><p><b><i>Has solved " + r[i]["puzzlesSolved"] + " puzzles.</i></b></p></span></div>";
+        }
+
+        $("#streak-leaderboard").html(s);
     });
 
     fetch(DATA_BASE_URL + "/sudoku/get-user-data.php", {
