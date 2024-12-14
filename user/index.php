@@ -17,12 +17,12 @@
     <?php $__REMOVE_PROFILE_BANNER__ = 1; ?>
 
     <?php include("../header.php");
-        
-        if (!array_key_exists("user", $_SESSION)) {
-            header("Location: $_DATA_BASE_URL/sso?return-page=https://sudoku.nathcat.net/user");
-            exit();
-        }
-    
+
+    if (!array_key_exists("user", $_SESSION)) {
+        header("Location: $_DATA_BASE_URL/sso?return-page=https://sudoku.nathcat.net/user");
+        exit();
+    }
+
     ?>
 
     <div class="main align-center">
@@ -45,24 +45,36 @@
 </body>
 
 <script>
-fetch(DATA_BASE_URL + "/sudoku/get-user-data.php", {
-    method: "GET",
-    credentials: "include",
-}).then((r) => r.json()).then((r) => {
-    if (r === null) {
-        r = {
-            "puzzlesSolved": 0,
-            "currentPuzzle": null,
-            "streakLength": 0,
-            "hasSolvedToday": 0,
-        };
+    function toggle_streak_notifications() {
+        fetch(DATA_BASE_URL + "/sudoku/toggle-streak-notifications.php", {
+            method: "GET",
+            credentials: "include"
+        }).then((r) => r.json()).then((r) => {
+            if (r.status === "success") location.reload();
+            else alert(r.message);
+        });
     }
 
-    $("#user-data-container").html(
-        "<p>You have solved " + r["puzzlesSolved"] + " puzzles.</p>" +
-        "<p>You have a " + (r["streakLength"] + (r["hasSolvedToday"] === 1 ? 1 : 0)) + " day streak." + (r["hasSolvedToday"] === 0 ? " <b><i>You haven't solved a puzzle yet today!</b></i>" : " You have solved a puzzle today :)") + "</p>"
-    );
-});
+    fetch(DATA_BASE_URL + "/sudoku/get-user-data.php", {
+        method: "GET",
+        credentials: "include",
+    }).then((r) => r.json()).then((r) => {
+        if (r === null) {
+            r = {
+                "puzzlesSolved": 0,
+                "currentPuzzle": null,
+                "streakLength": 0,
+                "hasSolvedToday": 0,
+                "emailStreakNotifications": 0
+            };
+        }
+
+        $("#user-data-container").html(
+            "<p>You have solved " + r["puzzlesSolved"] + " puzzles.</p>" +
+            "<p>You have a " + (r["streakLength"] + (r["hasSolvedToday"] === 1 ? 1 : 0)) + " day streak." + (r["hasSolvedToday"] === 0 ? " <b><i>You haven't solved a puzzle yet today!</b></i>" : " You have solved a puzzle today :)") + "</p>" +
+            "<button onclick='toggle_streak_notifications()'>" + (r["emailStreakNotifications"] === 1 ? "Unsubscribe from streak notifications" : "Subscribe to streak notifications") + "</button>"
+        );
+    });
 </script>
 
 </html>
